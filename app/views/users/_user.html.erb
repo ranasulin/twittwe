@@ -1,0 +1,17 @@
+<div class="user-container">
+  <div class="user-image">
+    <%= image_tag('https://previews.123rf.com/images/pioneer111/pioneer1111310/pioneer111131000002/22706571-sunflower-isolated-on-white-background-with-clipping-path-.jpg', class:'user-img') %>
+  </div>
+  <div class="user-info">
+    <div class="user-name">
+      <%= user.name %>
+    </div>
+    <div class="user-options">
+      <div>Following you</div>
+      <div><%= user.followers.count %> Followers</div>
+    </div>
+    <div>
+      
+    </div>
+  </div>
+</div>
