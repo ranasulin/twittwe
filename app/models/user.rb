@@ -15,4 +15,8 @@ class User < ActiveRecord::Base
   join_table: "table_mentions",
   foreign_key: "mention_subject",
   association_foreign_key: "mentioned_by"
+
+  def add_follower
+    p params
+  end
 end
