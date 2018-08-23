@@ -16,7 +16,9 @@ class User < ActiveRecord::Base
   foreign_key: "mention_subject",
   association_foreign_key: "mentioned_by"
 
-  def add_follower
-    p params
+  def follows?(user)
+    p "follows?"
+    p user.followers.where(id: id).first
+    user.followers.where(id: id).first
   end
 end

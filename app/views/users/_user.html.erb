@@ -11,7 +11,10 @@
       <div class='followers-number'><%= user.followers.count %> Followers</div>
     </div>
     <div>
-      <%= link_to "Follow", user_add_follower_path(user), method: :put, class: 'btn btn-info', remote: true %>
+      <div class='follow-functionality'>
+        <%= link_to "Unfollow", user_remove_follower_path(user), method: :put, class: 'btn btn-info unfollow-btn', remote: true %>
+        <%= link_to "Follow", user_add_follower_path(user), method: :put, class: 'btn btn-info follow-btn', remote: true %>
+      </div>
       <%= link_to "Say Hi", class: 'btn btn-danger' %>
     </div>
   </div>

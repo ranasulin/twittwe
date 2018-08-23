@@ -1,1 +1,9 @@
 $('#user-' +<%= @user.id %>+' .followers-number').html("<%= @user.followers.count %> Followers");
+
+<% if current_user.follows?(@user) %>
+    $('#user-' +<%= @user.id %>+' .follow-btn').hide()
+    $('#user-' +<%= @user.id %>+' .unfollow-btn').show()
+<% else %>
+  $('#user-' +<%= @user.id %>+' .unfollow-btn').hide()
+  $('#user-' +<%= @user.id %>+' .follow-btn').show()
+<% end %>

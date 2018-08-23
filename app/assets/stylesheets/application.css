@@ -14,3 +14,15 @@
   height: 25px;
   width: 25px;
 }
+
+.unfollow-btn {
+  display: none;
+}
+
+.user-info {
+  margin-top: 9px;
+}
+
+.nav {
+  margin-top: 5px;
+}
