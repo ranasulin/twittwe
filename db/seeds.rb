@@ -23,9 +23,8 @@ member = User.new(
 member.skip_confirmation!
 member.save!
 
-5.times do
-  member.followers << users.sample
-end
+member.followers << User.first
+member.mentioned_by << User.first
 
 puts "Seed finished"
 puts "#{User.count} users created"
