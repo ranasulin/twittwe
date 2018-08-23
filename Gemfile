@@ -54,4 +54,7 @@ group :development do
   gem 'figaro'
   gem 'faker'
   gem 'bootstrap-sass'
+  gem 'carrierwave'
+  gem 'mini_magick', '~> 3.5.0'
+  gem 'fog'
 end

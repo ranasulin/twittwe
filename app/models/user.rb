@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  mount_uploader :avatar, AvatarUploader
+
   has_and_belongs_to_many :followers,
   class_name: "User",
   join_table: "user_connections",
@@ -21,4 +23,8 @@ class User < ActiveRecord::Base
     p user.followers.where(id: id).first
     user.followers.where(id: id).first
   end
+
+  def user_params
+   params.require(:user).permit(:name, :avatar)
+end
 end
