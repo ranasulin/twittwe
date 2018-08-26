@@ -12,6 +12,8 @@ end
 group :development do
   gem 'sqlite3'
 end
+
+gem 'bootstrap-sass'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -53,7 +55,7 @@ group :development do
   gem 'devise'
   gem 'figaro'
   gem 'faker'
-  gem 'bootstrap-sass'
+
   gem 'carrierwave'
   gem 'mini_magick', '~> 3.5.0'
   gem 'fog'

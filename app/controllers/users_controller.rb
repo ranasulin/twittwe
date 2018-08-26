@@ -1,27 +1,30 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit]
+  before_action only: [:edit]
   respond_to :html, :js
 
   def show
+    get_followers
   end
 
-  def add_follower
+  def follow
     @user = User.find(params[:user_id])
-    @user.followers << current_user
-
-    respond_with(@user) do |format|
-      format.html { redirect_to :back }
+    if @user.followers << current_user
+      remove_follower_from_db
+    else
+      flash[:error] = "Cannot follow #{@user.name}"
     end
   end
 
-  def remove_follower
-    @user = User.find(params[:user_id])
-    followerObject = @user.followers.find(current_user.id)
-    @user.followers.delete(followerObject)
+  def unfollow
+    remove_follower_from_db
+  end
 
-    respond_with(@user) do |format|
-      format.html { redirect_to :back }
-      format.js { render action: 'add_follower.js.erb'}
+  def mention_user
+    @user = User.find(params[:user_id])
+    if @user.mentions << current_user
+      remove_follower_from_db
+    else
+      flash[:error] = "Cannot mention #{@user.name}"
     end
   end
 
@@ -36,6 +39,25 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def get_followers
+    @followers = current_user.followers.limit(3)
+  end
+
+  def remove_follower_from_db
+    @user = User.find(params[:user_id])
+    followerObject = current_user.followers.find(params[:user_id])
+    if !current_user.followers.delete(followerObject)
+      flash[:error] = "Cannot remove #{@user.name} from list"
+    end
+
+    get_followers
+
+    respond_with(@followers) do |format|
+      format.html { redirect_to :back }
+      format.js { render action: 'update_follower.js.erb'}
+    end
+  end
 
   def user_params
     params.require(:user).permit(:name, :avatar)

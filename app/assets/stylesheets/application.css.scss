@@ -1,0 +1,78 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.user-container {
+  height: 130px;
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+
+  .glyphicon.glyphicon-remove {
+      font-size: 10px;
+  }
+  
+  .info {
+    display: flex;
+
+    .user-info {
+      margin-top: 9px;
+      flex: 5;
+
+      .user-name {
+        font-weight: bold;
+      }
+
+      .dismiss-actions {
+        margin-top: 5px;
+      }
+    }
+
+    .user-image {
+      flex: 1;
+
+      .user-img {
+        height: 50px;
+        width: 50px;
+        margin: 5px;
+      }
+    }
+  }
+}
+
+.nav {
+  margin-top: 5px;
+}
+
+.head {
+    height: 50px;
+    background-color: #45b4f0;
+}
+
+.logo {
+  color: white;
+  height: 50px;
+  width: 200px;
+}
+
+
+
+.tag {
+  border: 1px solid #45b4f0;
+  border-radius: 5px;
+  color: #45b4f0;
+  padding: 1px;
+}
+
+.new-followers-container {
+  width: 300px;
+  border: 1px solid lightgrey;
+  margin: 50px auto;
+
+  .users-list {
+
+  }
+
+  .new-followers-title {
+    font-weight: bold;
+    padding: 10px;
+  }
+}

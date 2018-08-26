@@ -1,0 +1,2 @@
+$('.users-list').empty()
+$('.users-list').html("<%= escape_javascript(render partial: 'users/user', collection: @followers, as: :user ) %>")

@@ -12,16 +12,22 @@ class User < ActiveRecord::Base
   foreign_key: "follower_id",
   association_foreign_key: "followee_id"
 
-  has_and_belongs_to_many :mentioned_by,
+  has_and_belongs_to_many :mentions,
   class_name: "User",
   join_table: "table_mentions",
   foreign_key: "mention_subject",
   association_foreign_key: "mentioned_by"
 
   def follows?(user)
-    p "follows?"
-    p user.followers.where(id: id).first
     user.followers.where(id: id).first
+  end
+
+  def mentioned?(user)
+    mentions.where(id: user.id)
+  end
+
+  def influencer?
+    followers.count >= 3
   end
 
   def user_params
