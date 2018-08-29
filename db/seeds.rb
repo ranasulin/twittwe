@@ -10,10 +10,10 @@
 end
 users = User.all
 
-10.times do
-  follower, followee = users.sample(2)
-  followee.followers << follower
-end
+#10.times do
+#  follower, followee = users.sample(2)
+#  followee.followers << follower
+#end
 
 member = User.new(
   name:     'Rani',
@@ -23,9 +23,11 @@ member = User.new(
 member.skip_confirmation!
 member.save!
 
-followersAndMentioners = users.sample(5)
-member.followers << followersAndMentioners
-member.mentions << followersAndMentioners
+5.times do
+  user = users.sample
+  UserConnection.create(follower: user, followee: member)
+  member.mentions << user
+end
 
 puts "Seed finished"
 puts "#{User.count} users created"

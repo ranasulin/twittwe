@@ -8,21 +8,23 @@ class UsersController < ApplicationController
 
   def follow
     @user = User.find(params[:user_id])
-    if @user.followers << current_user
-      remove_follower_from_db
+    createFollower = UserConnection.create(follower: current_user, followee: @user)
+    if @user.save
+      dismiss(@user, current_user)
     else
       flash[:error] = "Cannot follow #{@user.name}"
     end
   end
 
   def unfollow
-    remove_follower_from_db
+    @user = User.find(params[:user_id])
+    dismiss(@user, current_user)
   end
 
   def mention_user
     @user = User.find(params[:user_id])
     if @user.mentions << current_user
-      remove_follower_from_db
+      dismiss(@user, current_user)
     else
       flash[:error] = "Cannot mention #{@user.name}"
     end
@@ -40,17 +42,20 @@ class UsersController < ApplicationController
 
   private
 
+  def dismiss (follower, followee)
+    relation = UserConnection.where("follower_id = ? AND followee_id = ?", @user.id, current_user.id)
+    if relation.update_all(dismiss:true)
+      update_view
+    else
+      flash[:error] = "Could not complete action"
+    end
+  end
+
   def get_followers
     @followers = current_user.followers.limit(3)
   end
 
-  def remove_follower_from_db
-    @user = User.find(params[:user_id])
-    followerObject = current_user.followers.find(params[:user_id])
-    if !current_user.followers.delete(followerObject)
-      flash[:error] = "Cannot remove #{@user.name} from list"
-    end
-
+  def update_view
     get_followers
 
     respond_with(@followers) do |format|

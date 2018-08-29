@@ -6,11 +6,10 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  has_and_belongs_to_many :followers,
-  class_name: "User",
-  join_table: "user_connections",
-  foreign_key: "follower_id",
-  association_foreign_key: "followee_id"
+  has_many :user_connections, foreign_key: "followee_id", dependent: :destroy
+  has_many(:reverse_user_connections, class_name: :UserConnection,
+        foreign_key: "follower_id", dependent: :destroy)
+  has_many :followers, -> { where('user_connections.dismiss = ?', false) }, class_name: :User, through: :user_connections, source: "follower"
 
   has_and_belongs_to_many :mentions,
   class_name: "User",
